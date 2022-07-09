@@ -5,6 +5,9 @@ import table from "./table.css";
 function App() {
   const [data, setData] = useState([]);
 
+  const [userId, setUserId] = useState("");
+  const [title, setTitle] = useState("");
+
   useEffect(() => {
     axios
       .get("https://jsonplaceholder.typicode.com/photos")
@@ -15,6 +18,18 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
+  // postData
+  const postData = (e) => {
+    e.preventDefault();
+    axios
+      .post("https://jsonplaceholder.typicode.com/photos", {
+        userId: userId,
+        title: title,
+      })
+      .then((res) => console.log("posting data", res))
+      .catch((err) => console.log(err));
+  };
+
   // DeleteRow function
   const deleteRow = (id) => {
     axios
@@ -24,7 +39,7 @@ function App() {
         setData(data.filter((item) => item.id !== id));
       })
 
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("why not working....?", err));
   };
 
   const arr = data.map((data, index) => {
@@ -44,6 +59,15 @@ function App() {
 
   return (
     <div className="App">
+      <h3>post</h3>
+      <form>
+        <input type="text" name="userId" placeholder="UserID" value={userId} onChange={(e) => setUserId(e.target.value)} />
+        <hr />
+        <input type="text" name="title" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <hr />
+        <button onClick={postData}>Submit</button>
+      </form>
+
       <h3>List of album</h3>
 
       <table>
