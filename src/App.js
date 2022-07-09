@@ -68,7 +68,7 @@ function App() {
         <button onClick={postData}>Submit</button>
       </form>
 
-      <h3>List of album</h3>
+      <h3>List of album Evan Kim</h3>
 
       <table>
         <tr>
